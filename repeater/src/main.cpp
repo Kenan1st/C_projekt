@@ -8,10 +8,11 @@
 
 Adafruit_MPU6050 mpu;
 
-#define CNS 1
-#define CE 2
-#define JOYSTICK 3
-#define BUTTON 4
+#define CNS 19
+#define CE 18
+#define JOYSTICKX 4
+#define JOYSTICKY 2
+#define BUTTON 15
 
 RF24 radio(CNS,CE);
 
@@ -41,9 +42,10 @@ void initRadio(){
 
 void setup() {
 	Serial.begin(115200);
+	SPI.begin(21, 22, 23);
 	initMpu();
 	initRadio();
-	
+	pinMode(BUTTON, INPUT_PULLUP);
 }
 
 void loop(){
@@ -59,9 +61,12 @@ void loop(){
 
 
 	if(joystickcontrol){
-		int potValue = analogRead(JOYSTICK);
-		int angle = map(potValue,0,1023,0,360);
-		int thrust = map(potValue,0,1023,0,512);
+		int potValueX = analogRead(JOYSTICKX);
+		int potValueY = analogRead(JOYSTICKY);
+		Serial.printf("X: %d",potValueX);
+		Serial.printf("Y: %d",potValueY);
+		int angle = map(potValueX,0,1023,0,360);
+		int thrust = map(potValueY,0,1023,0,512);
 
 		Controlpack sendpack= {angle,thrust};
 
