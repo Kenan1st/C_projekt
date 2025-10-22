@@ -21,11 +21,11 @@ const byte address[6] = "00001";
 bool joystickcontrol = 1;
 bool lastButtonState = 0;
 
-struct Controlpack{
+/*typedef struct{
 	int angle;
 	int thrust;
-};
-
+} SENSOR_DATA;
+*/
 void initMpu(){
 	mpu.begin();
 	mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
@@ -33,19 +33,22 @@ void initMpu(){
 	mpu.setFilterBandwidth(MPU6050_BAND_184_HZ);
 }
 
-void initRadio(){
+/*void initRadio(){
 	radio.begin();
 	radio.openWritingPipe(address);
 	radio.setPALevel(RF24_PA_MIN);
-	radio.stopListening();
-}
+}*/
 
 void setup() {
 	Serial.begin(115200);
 	SPI.begin(21, 22, 23);
 	initMpu();
-	initRadio();
+	//initRadio();
 	pinMode(BUTTON, INPUT_PULLUP);
+	radio.begin();
+	radio.openWritingPipe(address);
+	radio.setPALevel(RF24_PA_MIN);
+	radio.stopListening();
 }
 
 void loop(){
@@ -65,25 +68,25 @@ void loop(){
 		int potValueY = analogRead(JOYSTICKY);
 		Serial.printf("X: %d",potValueX);
 		Serial.printf("Y: %d",potValueY);
-		int angle = map(potValueX,0,1023,0,360);
+		//int angle = map(potValueX,0,1023,0,360);
 		int thrust = map(potValueY,0,1023,0,512);
 
-		Controlpack sendpack= {angle,thrust};
+		//SENSOR_DATA sendData= {angle,thrust};
 
-		radio.write(&sendpack,sizeof(sendpack));
-	}
+		radio.write(&thrust,sizeof(thrust));
+	}/*
 	else{
 		sensors_event_t a, g, temp;
     		mpu.getEvent(&a, &g, &temp);
-		float accValue = a.acceleration.z;
-		float angValue = (g.gyro.x+g.gyro.y)/2;
+		int accValue = a.acceleration.z;
+		int angValue = (g.gyro.x+g.gyro.y)/2;
 
 		int angle = map((int)angValue,-250,250,0,360);
 		int thrust = map((int)accValue,0,8,0,360);
 
-		Controlpack sendpack= {angle,thrust};
+		SENSOR_DATA sendData= {angle,thrust};
 
-		radio.write(&sendpack,sizeof(sendpack));
+		radio.write(&sendData,sizeof(sendData));
 
-	}
+	}*/
 }

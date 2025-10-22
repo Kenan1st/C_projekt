@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <ESP32_Servo.h>
 
-#define MS1 7
+/*#define MS1 7
 #define M1V 8
 #define M1Z 9
 #define M2V 10
@@ -15,29 +15,27 @@
 #define M3V 13
 #define M3Z 14
 #define M4V 15
-#define M4Z 16
+#define M4Z 16*/
 
-#define CNS 17
-#define CE 18
+#define CSN 18
+#define CE 19
 
-#define NRF 20
+RF24 radio(CSN,CE);
 
-#define SPIN1 21
+/*#define SPIN1 21
 #define SPIN2 22
 
 Servo servo1;
-Servo servo2;
+Servo servo2;*/
 
-RF24 radio(CNS,CE);
-
-struct Controlpack{
+/*typedef struct{
 	int angle;
 	int thrust;
-};
-
+}SENSOR_DATA;
+*/
 const byte address[6] = "00001";
 
-void setupMotor(){
+/*void setupMotor(){
 	pinMode(MS1,OUTPUT);
 	pinMode(MS2,OUTPUT);
 	pinMode(M1V,OUTPUT);
@@ -49,17 +47,16 @@ void setupMotor(){
 	pinMode(M4V,OUTPUT);
 	pinMode(M4Z,OUTPUT);
 
-}
+}*/
 
 void initRadio(){
 
 	radio.begin();
-	radio.openReadingPipe(1,address);
+	radio.openReadingPipe(0,address);
 	radio.setPALevel(RF24_PA_MIN);
-	radio.startListening();
 }
 
-void driveFor(){
+/*void driveFor(){
 	digitalWrite(M1V,HIGH);		// Wenn V High ist fährt man vorwärts (Z muss LOW sein)
 	digitalWrite(M2Z,LOW);		// Wenn Z High ist fährt man rückwärts (V muss LOW sein)
 	digitalWrite(M2V,HIGH);
@@ -69,9 +66,9 @@ void driveFor(){
 	digitalWrite(M4V,HIGH);
 	digitalWrite(M4Z,LOW);
 
-}
+}*/
 
-void driveBack(){
+/*void driveBack(){
 	digitalWrite(M1V,LOW);		// Die Motoren haben eine mayimal geschwindigkeitsstufe von 255
 	digitalWrite(M1Z,HIGH);
 	digitalWrite(M2V,LOW);
@@ -80,35 +77,29 @@ void driveBack(){
 	digitalWrite(M3Z,HIGH);
 	digitalWrite(M4V,LOW);
 	digitalWrite(M4Z,HIGH);
-}
+}*/
 
 void setup(){
+	Serial.begin(115200);
+	//setupMotor();
 
-	setupMotor();
+	//servo1.attach(SPIN1);
+	//servo2.attach(SPIN2);
 
-	servo1.attach(SPIN1);
-	servo2.attach(SPIN2);
-
-	radio.begin();
-	radio.openReadingPipe(1,address);
-	radio.setPALevel(RF24_PA_MIN);
+	initRadio();
+	radio.startListening();
 }
 
 void loop(){
 	delay(5);
-	if(radio.available()){
 		while(radio.available()){
-			int angle = 0;
-			int thrust = 0;
+			int received;;
 
-			Controlpack recpack;
+			radio.read(&received,sizeof(received));
 
-			radio.read(&recpack,sizeof(recpack));
+			Serial.printf("thrust: %d \n"/*| angle: %d \n",received.thrust,received.angle);*/,received);
 
-			thrust = recpack.thrust;
-			angle = recpack.angle;
-
-			analogWrite(MS1,thrust);
+			/*analogWrite(MS1,thrust);
 			analogWrite(MS2,thrust);
 
 			if(thrust<127){
@@ -119,8 +110,6 @@ void loop(){
 			}
 
 			servo1.write(constrain(angle,0,180));
-			servo2.write(constrain(360 - angle, 0, 180));
+			servo2.write(constrain(360 - angle, 0, 180));*/
 		}
-	}
 }
-

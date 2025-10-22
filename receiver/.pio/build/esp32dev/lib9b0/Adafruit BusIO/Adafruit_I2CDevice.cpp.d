@@ -1,5 +1,6 @@
-.pio/build/esp32dev/libd4b/Adafruit\ MPU6050/Adafruit_MPU6050.cpp.o: \
- .pio/libdeps/esp32dev/Adafruit\ MPU6050/Adafruit_MPU6050.cpp \
+.pio/build/esp32dev/lib9b0/Adafruit\ BusIO/Adafruit_I2CDevice.cpp.o: \
+ .pio/libdeps/esp32dev/Adafruit\ BusIO/Adafruit_I2CDevice.cpp \
+ .pio/libdeps/esp32dev/Adafruit\ BusIO/Adafruit_I2CDevice.h \
  /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
  /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp_arduino_version.h \
  /home/kenan/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/freertos/FreeRTOS.h \
@@ -135,13 +136,4 @@
  /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/io_pin_remap.h \
  /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
  /home/kenan/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src/Wire.h \
- /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal.h \
- .pio/libdeps/esp32dev/Adafruit\ MPU6050/Adafruit_MPU6050.h \
- .pio/libdeps/esp32dev/Adafruit\ BusIO/Adafruit_BusIO_Register.h \
- .pio/libdeps/esp32dev/Adafruit\ BusIO/Adafruit_GenericDevice.h \
- .pio/libdeps/esp32dev/Adafruit\ BusIO/Adafruit_I2CDevice.h \
- .pio/libdeps/esp32dev/Adafruit\ BusIO/Adafruit_SPIDevice.h \
- /home/kenan/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src/SPI.h \
- /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-spi.h \
- .pio/libdeps/esp32dev/Adafruit\ Unified\ Sensor/Adafruit_Sensor.h \
- /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/Print.h
+ /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal.h

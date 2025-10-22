@@ -1,4 +1,4 @@
-.pio/build/esp32dev/libd15/Adafruit\ BusIO/Adafruit_GenericDevice.cpp.o: \
+.pio/build/esp32dev/lib9b0/Adafruit\ BusIO/Adafruit_GenericDevice.cpp.o: \
  .pio/libdeps/esp32dev/Adafruit\ BusIO/Adafruit_GenericDevice.cpp \
  .pio/libdeps/esp32dev/Adafruit\ BusIO/Adafruit_GenericDevice.h \
  /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \

@@ -1,4 +1,4 @@
-.pio/build/esp32dev/lib8e8/RF24/RF24.cpp.o: lib/RF24/RF24.cpp \
+.pio/build/esp32dev/lib49f/RF24/RF24.cpp.o: lib/RF24/RF24.cpp \
  lib/RF24/nRF24L01.h lib/RF24/RF24_config.h \
  /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
  /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp_arduino_version.h \

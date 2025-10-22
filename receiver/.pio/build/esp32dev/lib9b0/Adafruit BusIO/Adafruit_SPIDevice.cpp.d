@@ -1,6 +1,6 @@
-.pio/build/esp32dev/libee3/ESP32Servo/ESP32_Servo.cpp.o: \
- lib/ESP32Servo/src/ESP32_Servo.cpp lib/ESP32Servo/src/ESP32_Servo.h \
- /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-ledc.h \
+.pio/build/esp32dev/lib9b0/Adafruit\ BusIO/Adafruit_SPIDevice.cpp.o: \
+ .pio/libdeps/esp32dev/Adafruit\ BusIO/Adafruit_SPIDevice.cpp \
+ .pio/libdeps/esp32dev/Adafruit\ BusIO/Adafruit_SPIDevice.h \
  /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
  /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp_arduino_version.h \
  /home/kenan/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/freertos/FreeRTOS.h \
@@ -134,4 +134,6 @@
  /home/kenan/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/spi_flash/include/esp_spi_flash_counters.h \
  /home/kenan/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_hw_support/include/soc/esp32/spiram.h \
  /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/io_pin_remap.h \
- /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h
+ /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
+ /home/kenan/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src/SPI.h \
+ /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-spi.h
