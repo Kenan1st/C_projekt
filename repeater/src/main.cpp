@@ -16,7 +16,7 @@ Adafruit_MPU6050 mpu;
 
 RF24 radio(CNS,CE);
 
-const byte address[6] = "00001";
+byte address[][6] = {"0"};
 
 bool joystickcontrol = 1;
 bool lastButtonState = 0;
@@ -46,9 +46,10 @@ void setup() {
 	//initRadio();
 	pinMode(BUTTON, INPUT_PULLUP);
 	radio.begin();
-	radio.openWritingPipe(address);
-	radio.setPALevel(RF24_PA_MIN);
-	radio.stopListening();
+	radio.setChannel(10);
+	radio.setPALevel(RF24_PA_LOW);
+	radio.setDataRate(RF24_250KBPS);
+	radio.openWritingPipe(address[0]);
 }
 
 void loop(){
@@ -67,13 +68,14 @@ void loop(){
 		int potValueX = analogRead(JOYSTICKX);
 		int potValueY = analogRead(JOYSTICKY);
 		Serial.printf("X: %d",potValueX);
-		Serial.printf("Y: %d",potValueY);
-		//int angle = map(potValueX,0,1023,0,360);
-		int thrust = map(potValueY,0,1023,0,512);
+		Serial.printf("Y: %d\n",potValueY);
+		Serial.printf("adresse: %s",address);
+		//int angle = potValueX-1905;
+		//int thrust = (potValueY-1450);
 
 		//SENSOR_DATA sendData= {angle,thrust};
 
-		radio.write(&thrust,sizeof(thrust));
+		radio.write(&potValueX,sizeof(potValueX));
 	}/*
 	else{
 		sensors_event_t a, g, temp;
