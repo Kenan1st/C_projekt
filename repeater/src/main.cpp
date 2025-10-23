@@ -16,8 +16,6 @@ Adafruit_MPU6050 mpu;
 
 RF24 radio(CNS,CE);
 
-unsigned int address = 12345;
-
 bool joystickcontrol = 1;
 bool lastButtonState = 0;
 
@@ -35,10 +33,11 @@ void initMpu(){
 
 void initRadio(){
 	radio.begin();
-	radio.setChannel(10);
-	radio.setPALevel(RF24_PA_HIGH);
+	radio.setChannel(5);
+	radio.setPALevel(RF24_PA_LOW);
 	radio.setDataRate(RF24_250KBPS);
-	radio.openWritingPipe(address);
+	radio.openWritingPipe(0x1234567890LL);
+	radio.stopListening();
 }
 
 void setup() {
@@ -61,7 +60,7 @@ void loop(){
 
 
 	if(joystickcontrol){
-		int potValueX = analogRead(JOYSTICKX);
+		/*int potValueX = analogRead(JOYSTICKX);
 		int potValueY = analogRead(JOYSTICKY);
 		Serial.printf("X: %d",potValueX);
 		Serial.printf("Y: %d\n",potValueY);
@@ -69,8 +68,21 @@ void loop(){
 		//int thrust = (potValueY-1450);
 
 		//SENSOR_DATA sendData= {angle,thrust};
+		//
+		int pops = 5;
 
-		radio.write(&potValueX,sizeof(potValueX));
+		radio.write(&pops,sizeof(pops));
+		*/
+
+		
+		int test = 1234;
+		bool success = radio.write(&test, sizeof(test));
+		Serial.println(success ? "Send OK" : "Send FAIL");
+
+		if (!radio.isChipConnected()) {
+ 		 Serial.println("nRF24L01 nicht verbunden!");
+		}
+
 	}/*
 	else{
 		sensors_event_t a, g, temp;

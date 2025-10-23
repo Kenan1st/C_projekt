@@ -20,6 +20,8 @@
 #define CSN 18
 #define CE 19
 
+int received;
+
 RF24 radio(CSN,CE);
 
 /*#define SPIN1 21
@@ -33,7 +35,7 @@ Servo servo2;*/
 	int thrust;
 }SENSOR_DATA;
 */
-unsigned int address = 12345;
+//unsigned int address = 12345;
 
 /*void setupMotor(){
 	pinMode(MS1,OUTPUT);
@@ -52,10 +54,10 @@ unsigned int address = 12345;
 void initRadio(){
 
 	radio.begin();
-	radio.setChannel(10);
-	radio.setPALevel(RF24_PA_MAX);
+	radio.setChannel(5);
+	radio.setPALevel(RF24_PA_LOW);
 	radio.setDataRate(RF24_250KBPS);
-	radio.openReadingPipe(1,address);
+	radio.openReadingPipe(1,0x1234567890LL);
 	radio.startListening();
 }
 
@@ -83,8 +85,8 @@ void initRadio(){
 }*/
 
 void setup(){
-	Serial.begin(115200);
 	delay(1000);
+	Serial.begin(115200);
 	//setupMotor();
 
 	//servo1.attach(SPIN1);
@@ -96,11 +98,14 @@ void setup(){
 void loop(){
 	delay(5);
 		while(radio.available()){
-			int received;
+
+			if (!radio.isChipConnected()) {
+				Serial.println("nRF24L01 nicht verbunden!");
+			}
 
 			radio.read(&received,sizeof(received));
 
-			Serial.printf("thrust: %d \n"/*| angle: %d \n",received.thrust,received.angle);*/,received);
+			Serial.printf("receivedlen: %d \n"/*| angle: %d \n",received.thrust,received.angle);*/,received);
 
 			/*analogWrite(MS1,thrust);
 			analogWrite(MS2,thrust);
