@@ -33,7 +33,7 @@ Servo servo2;*/
 	int thrust;
 }SENSOR_DATA;
 */
-byte address[][6] ={"0"};
+unsigned int address = 12345;
 
 /*void setupMotor(){
 	pinMode(MS1,OUTPUT);
@@ -55,7 +55,7 @@ void initRadio(){
 	radio.setChannel(10);
 	radio.setPALevel(RF24_PA_MAX);
 	radio.setDataRate(RF24_250KBPS);
-	radio.openReadingPipe(1,address[0]);
+	radio.openReadingPipe(1,address);
 	radio.startListening();
 }
 
@@ -91,7 +91,6 @@ void setup(){
 	//servo2.attach(SPIN2);
 
 	initRadio();
-	radio.startListening();
 }
 
 void loop(){

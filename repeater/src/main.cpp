@@ -8,15 +8,15 @@
 
 Adafruit_MPU6050 mpu;
 
-#define CNS 19
-#define CE 18
-#define JOYSTICKX 4
-#define JOYSTICKY 2
+#define CNS 5
+#define CE 4
+#define JOYSTICKX 13
+#define JOYSTICKY 12
 #define BUTTON 15
 
 RF24 radio(CNS,CE);
 
-byte address[][6] = {"0"};
+unsigned int address = 12345;
 
 bool joystickcontrol = 1;
 bool lastButtonState = 0;
@@ -33,23 +33,19 @@ void initMpu(){
 	mpu.setFilterBandwidth(MPU6050_BAND_184_HZ);
 }
 
-/*void initRadio(){
+void initRadio(){
 	radio.begin();
+	radio.setChannel(10);
+	radio.setPALevel(RF24_PA_HIGH);
+	radio.setDataRate(RF24_250KBPS);
 	radio.openWritingPipe(address);
-	radio.setPALevel(RF24_PA_MIN);
-}*/
+}
 
 void setup() {
 	Serial.begin(115200);
-	SPI.begin(21, 22, 23);
+	initRadio();
 	initMpu();
-	//initRadio();
 	pinMode(BUTTON, INPUT_PULLUP);
-	radio.begin();
-	radio.setChannel(10);
-	radio.setPALevel(RF24_PA_LOW);
-	radio.setDataRate(RF24_250KBPS);
-	radio.openWritingPipe(address[0]);
 }
 
 void loop(){
@@ -69,7 +65,6 @@ void loop(){
 		int potValueY = analogRead(JOYSTICKY);
 		Serial.printf("X: %d",potValueX);
 		Serial.printf("Y: %d\n",potValueY);
-		Serial.printf("adresse: %s",address);
 		//int angle = potValueX-1905;
 		//int thrust = (potValueY-1450);
 
