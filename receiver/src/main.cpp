@@ -16,10 +16,11 @@
 #define M4V 15
 #define M4Z 16*/
 
+#define BLNK_L 13
+#define BLNK_R 12
+
 #define CSN 5
 #define CE 4
-
-int received;
 
 RF24 radio(CE,CSN);
 
@@ -33,6 +34,8 @@ typedef struct{
 	int angle;
 	int thrust;
 } SENSOR_DATA;
+
+int blinker = 0;
 
 
 /*void setupMotor(){
@@ -94,6 +97,7 @@ void setup(){
 }
 
 void loop(){
+
 	delay(10);
 
 		if(radio.available()){
@@ -101,6 +105,23 @@ void loop(){
 			SENSOR_DATA received;
 		
 			radio.read(&received,sizeof(received));
+
+			if(received.angle < 2150){
+					analogWrite(BLNK_L,LOW);
+					analogWrite(BLNK_R,HIGH);
+					blinker = blinker + 150;
+
+			}
+			else if(received.angle > 2250){
+					analogWrite(BLNK_R,LOW);
+					analogWrite(BLNK_L,HIGH);
+					blinker = blinker + 150;
+				}
+				else{
+					blinker = 0;
+					analogWrite(BLNK_R,LOW);
+					analogWrite(BLNK_L,LOW);
+				}
 
 			printf("thrust %d",received.thrust);
 			printf("angle %d\n",received.angle);
