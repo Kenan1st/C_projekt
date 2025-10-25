@@ -29,12 +29,11 @@ RF24 radio(CE,CSN);
 Servo servo1;
 Servo servo2;*/
 
-/*typedef struct{
+typedef struct{
 	int angle;
 	int thrust;
-}SENSOR_DATA;
-*/
-//unsigned int address = 12345;
+} SENSOR_DATA;
+
 
 /*void setupMotor(){
 	pinMode(MS1,OUTPUT);
@@ -95,19 +94,27 @@ void setup(){
 }
 
 void loop(){
-	delay(5);
+	delay(10);
 
-	if (!radio.isChipConnected()) {
-    Serial.println("nRF24L01 nicht verbunden!");
-    delay(1000);
-    return;
-  }
-
-  while (radio.available()) {
-    radio.read(&received, sizeof(received));
-    Serial.printf("receivedlen: %d\n", received);
-  }
+		if(radio.available()){
+			
+			SENSOR_DATA received;
 		
+			radio.read(&received,sizeof(received));
+
+			printf("thrust %d",received.thrust);
+			printf("angle %d\n",received.angle);
+
+
+		}
+		else{
+			if(!radio.isChipConnected()){
+				printf("CHIP N0T CONNECTED\n");
+			}
+			else{
+				printf("radio not Available");
+			}
+		}
 
 			/*analogWrite(MS1,thrust);
 			analogWrite(MS2,thrust);

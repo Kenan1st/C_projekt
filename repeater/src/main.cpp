@@ -19,11 +19,11 @@ RF24 radio(CE,CSN);
 bool joystickcontrol = 1;
 bool lastButtonState = 0;
 
-/*typedef struct{
+typedef struct{
 	int angle;
 	int thrust;
 } SENSOR_DATA;
-*/
+
 void initMpu(){
 	mpu.begin();
 	mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
@@ -50,6 +50,10 @@ void setup() {
 void loop(){
 	delay(5);
 
+	if(!radio.isChipConnected()){
+		printf("CHIP NOT CONNECTED");
+	}
+
 	bool currentButtonState = analogRead(BUTTON) < 100;
 
 	if (currentButtonState && !lastButtonState){
@@ -60,30 +64,18 @@ void loop(){
 
 
 	if(joystickcontrol){
-		/*int potValueX = analogRead(JOYSTICKX);
+		int potValueX = analogRead(JOYSTICKX);
 		int potValueY = analogRead(JOYSTICKY);
 		Serial.printf("X: %d",potValueX);
 		Serial.printf("Y: %d\n",potValueY);
-		//int angle = potValueX-1905;
-		//int thrust = (potValueY-1450);
+		int angle = potValueX;
+		int thrust = (potValueY);
 
-		//SENSOR_DATA sendData= {angle,thrust};
-		//
-		int pops = 5;
+		SENSOR_DATA sendData= {angle,thrust};
 
-		radio.write(&pops,sizeof(pops));
-		*/
+		radio.write(&sendData,sizeof(sendData));
 
-		
-		int test = 1234;
-		bool success = radio.write(&test, sizeof(test));
-		Serial.println(success ? "Send OK" : "Send FAIL");
-
-		if (!radio.isChipConnected()) {
- 		 Serial.println("nRF24L01 nicht verbunden!");
-		}
-
-	}/*
+	}
 	else{
 		sensors_event_t a, g, temp;
     		mpu.getEvent(&a, &g, &temp);
@@ -97,5 +89,5 @@ void loop(){
 
 		radio.write(&sendData,sizeof(sendData));
 
-	}*/
+	}
 }
