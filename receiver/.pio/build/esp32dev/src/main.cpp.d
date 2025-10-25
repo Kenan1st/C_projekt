@@ -135,5 +135,6 @@
  /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
  /home/kenan/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src/SPI.h \
  /home/kenan/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-spi.h \
- lib/RF24/nRF24L01.h lib/RF24/RF24.h lib/RF24/RF24_config.h \
- lib/RF24/nRF24L01.h lib/ESP32Servo/src/ESP32_Servo.h
+ .pio/libdeps/esp32dev/RF24/nRF24L01.h .pio/libdeps/esp32dev/RF24/RF24.h \
+ .pio/libdeps/esp32dev/RF24/RF24_config.h \
+ .pio/libdeps/esp32dev/RF24/nRF24L01.h

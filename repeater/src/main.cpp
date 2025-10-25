@@ -8,13 +8,13 @@
 
 Adafruit_MPU6050 mpu;
 
-#define CNS 5
+#define CSN 5
 #define CE 4
 #define JOYSTICKX 13
 #define JOYSTICKY 12
 #define BUTTON 15
 
-RF24 radio(CNS,CE);
+RF24 radio(CE,CSN);
 
 bool joystickcontrol = 1;
 bool lastButtonState = 0;

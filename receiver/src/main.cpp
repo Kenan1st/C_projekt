@@ -3,7 +3,6 @@
 #include <nRF24L01.h>
 #include <RF24.h>
 #include <stdio.h>
-#include <ESP32_Servo.h>
 
 /*#define MS1 7
 #define M1V 8
@@ -17,12 +16,12 @@
 #define M4V 15
 #define M4Z 16*/
 
-#define CSN 18
-#define CE 19
+#define CSN 5
+#define CE 4
 
 int received;
 
-RF24 radio(CSN,CE);
+RF24 radio(CE,CSN);
 
 /*#define SPIN1 21
 #define SPIN2 22
@@ -97,15 +96,18 @@ void setup(){
 
 void loop(){
 	delay(5);
-		while(radio.available()){
 
-			if (!radio.isChipConnected()) {
-				Serial.println("nRF24L01 nicht verbunden!");
-			}
+	if (!radio.isChipConnected()) {
+    Serial.println("nRF24L01 nicht verbunden!");
+    delay(1000);
+    return;
+  }
 
-			radio.read(&received,sizeof(received));
-
-			Serial.printf("receivedlen: %d \n"/*| angle: %d \n",received.thrust,received.angle);*/,received);
+  while (radio.available()) {
+    radio.read(&received, sizeof(received));
+    Serial.printf("receivedlen: %d\n", received);
+  }
+		
 
 			/*analogWrite(MS1,thrust);
 			analogWrite(MS2,thrust);
@@ -119,5 +121,4 @@ void loop(){
 
 			servo1.write(constrain(angle,0,180));
 			servo2.write(constrain(360 - angle, 0, 180));*/
-		}
 }
